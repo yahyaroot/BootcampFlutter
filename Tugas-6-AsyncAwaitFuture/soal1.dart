@@ -21,6 +21,7 @@ void main() async {
   print("Luffy");
   print("Zoro");
   print("Killer");
+  print(h.name);
   await h.getData();
   print(h.name);
 }
