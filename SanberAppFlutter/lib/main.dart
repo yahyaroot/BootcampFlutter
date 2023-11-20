@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:sanberapp/Tugas/Tugas-10/login.dart';
 import 'package:sanberapp/Tugas/Tugas-8/Tugas-8.dart';
 import 'package:sanberapp/Tugas/Tugas-9/Telegram.dart';
+import 'package:sanberapp/Tugas/Tugas-10/login.dart';
+import 'package:sanberapp/Tugas/Tugas-11/login.dart';
 
 void main() {
   runApp(const MyApp());
@@ -42,7 +43,11 @@ class MyApp extends StatelessWidget {
       // home: Telegram(),
 
       // Tugas 10
-      home: LoginPage(),
+      // home: LoginPage(),
+
+      //  Tugas 11
+
+      home: LoginPageTask(),
     );
   }
 }
