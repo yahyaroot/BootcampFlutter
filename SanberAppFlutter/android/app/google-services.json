@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "785255978295",
+    "project_id": "authsanber-bec21",
+    "storage_bucket": "authsanber-bec21.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:785255978295:android:29cdb6f0fd216648e436b2",
+        "android_client_info": {
+          "package_name": "com.example.sanberapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBsC0cPpMbX-IgZGzKDApsO6CsVmUq-RBA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

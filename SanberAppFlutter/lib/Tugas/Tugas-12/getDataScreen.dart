@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
-// import 'package:sanberapp_flutter/tugas14/get_data_detail_screen.dart';
+import 'package:sanberapp/Tugas/Tugas-12/get_data_detail_screen.dart';
 
 class GetDataScreen extends StatefulWidget {
   const GetDataScreen({Key? key}) : super(key: key);
@@ -44,7 +44,7 @@ class _getDataScreenState extends State<GetDataScreen> {
                 ? Center(child: CircularProgressIndicator())
                 : ListView.builder(
                     itemCount: data == null ? 0 : data!.length,
-                    itembuilder: (BuildContext context, int index) {
+                    itemBuilder: (BuildContext context, int index) {
                       return Container(
                         padding: EdgeInsets.all(5.0),
                         child: Column(
