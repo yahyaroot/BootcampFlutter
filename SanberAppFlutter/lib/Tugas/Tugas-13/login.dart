@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:sanberapp/Tugas/Tugas-13/Controller/navbar.dart';
 import 'package:sanberapp/Tugas/Tugas-13/register.dart';
@@ -11,6 +12,8 @@ class _LoginPageStartState extends State<LoginPageStart> {
   TextEditingController _emailController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
   bool _isObscured = true;
+
+  final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -149,13 +152,20 @@ class _LoginPageStartState extends State<LoginPageStart> {
           Container(
             height: 50,
             child: ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) =>
-                          HomePage()), // Replace with your RegisterPage class
-                );
+              onPressed: () async {
+                await _firebaseAuth
+                    .signInWithEmailAndPassword(
+                        email: _emailController.text,
+                        password: _passwordController.text)
+                    .then((value) => Navigator.of(context).pushReplacement(
+                        MaterialPageRoute(builder: (context) => HomePage())));
+
+                // Navigator.push(
+                //   context,
+                //   MaterialPageRoute(
+                //       builder: (context) =>
+                //           HomePage()), // Replace with your RegisterPage class
+                // );
                 // TODO: Implement Login functionality
               },
               style: ElevatedButton.styleFrom(

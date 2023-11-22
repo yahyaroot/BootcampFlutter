@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:sanberapp/Tugas/Tugas-13/login.dart';
 
 class RegisterPage extends StatefulWidget {
   @override
@@ -141,16 +142,14 @@ class _RegisterPageState extends State<RegisterPage> {
             height: 50,
             child: ElevatedButton(
               onPressed: () async {
-                await _firebaseAuth.createUserWithEmailAndPassword(
-                    email: _emailController.text,
-                    password: _passwordController.text);
+                await _firebaseAuth
+                    .createUserWithEmailAndPassword(
+                        email: _emailController.text,
+                        password: _passwordController.text)
+                    .then((value) => Navigator.of(context).pushReplacement(
+                        MaterialPageRoute(
+                            builder: (context) => LoginPageStart())));
 
-                // Navigator.pop(
-                //   context,
-                //   MaterialPageRoute(
-                //       builder: (context) =>
-                //           LoginPageStart()), // Replace with your RegisterPage class
-                // );
                 // TODO: Implement Login functionality
               },
               style: ElevatedButton.styleFrom(
@@ -168,6 +167,12 @@ class _RegisterPageState extends State<RegisterPage> {
             child: GestureDetector(
               behavior: HitTestBehavior.translucent,
               onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          LoginPageStart()), // Replace with your RegisterPage class
+                );
                 // TODO: Implement Register functionality
               },
               child: Text(
