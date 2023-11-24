@@ -1,5 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:sanberapp/Tugas/Tugas-15/pages/page_1.dart';
+import 'package:sanberapp/Tugas/Tugas-15/routes/page_routes.dart';
 // import 'package:sanberapp/Tugas/Tugas-8/Tugas-8.dart';
 // import 'package:sanberapp/Tugas/Tugas-9/Telegram.dart';
 // import 'package:sanberapp/Tugas/Tugas-10/login.dart';
@@ -7,7 +10,7 @@ import 'package:flutter/material.dart';
 // import 'package:sanberapp/Tugas/Tugas-11/login.dart';
 // import 'package:sanberapp/Tugas/Tugas-12/getDataScreen.dart';
 // import 'package:sanberapp/Tugas/Tugas-13/login.dart';
-import 'package:sanberapp/Tugas/Tugas-14/get_data_screen.dart';
+// import 'package:sanberapp/Tugas/Tugas-14/get_data_screen.dart';
 import 'package:sanberapp/firebase_options.dart';
 
 // void main() {
@@ -26,7 +29,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
@@ -52,7 +55,12 @@ class MyApp extends StatelessWidget {
       // home: LoginPageStart(),
 
       //  Tugas 14
-      home: GetDataScreenStateManagement(),
+      // home: GetDataScreenStateManagement(),
+
+      //  Tugas 15
+
+      home: PageOne(),
+      getPages: pageRouteApp.pages,
     );
   }
 }
