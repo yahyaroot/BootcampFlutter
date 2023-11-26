@@ -36,9 +36,10 @@ dependencies:
   firebase_core: ^2.22.0
   provider: ^6.1.1
   get: ^4.6.6
-  intl: ^0.17.0
+  intl: ^0.18.1
   loading_animation_widget: ^1.2.0+4
   flutter_progress_hud: ^2.0.1
+  onboarding: ^3.1.0
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -75,6 +76,17 @@ flutter:
     - assets/images/woman-2.png
     - assets/images/woman-3.png
     - assets/images/image_blog.png
+    - assets/images/figma_image.png
+    - assets/images/fluter_image.png
+    - assets/images/js_image.png
+    - assets/images/mysql_image.png
+    - assets/images/profile_foto.png
+    - assets/images/Tailwind_image.png
+    - assets/images/vue_image.png
+    - assets/images/Onboarding-1.png
+    - assets/images/Onboarding-2.png
+    - assets/images/Onboarding-3.png
+
 
 
 

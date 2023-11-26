@@ -141,10 +141,13 @@ class CategoryWidget extends StatefulWidget {
 }
 
 class _CategoryWidgetState extends State<CategoryWidget>
-    with SingleTickerProviderStateMixin {
+    with SingleTickerProviderStateMixin, AutomaticKeepAliveClientMixin {
   List<dynamic> categoryNews = [];
   String selectedCategory = 'all'; // Default category
   TabController? _tabController;
+
+  @override
+  bool get wantKeepAlive => true;
 
   @override
   void initState() {
