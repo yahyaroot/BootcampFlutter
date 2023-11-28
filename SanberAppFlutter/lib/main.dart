@@ -1,7 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sanberapp/FinalProject/onboarding.dart';
+import 'package:sanberapp/FinalProject/login.dart';
 import 'package:sanberapp/firebase_options.dart';
 
 // import 'package:sanberapp/Tugas/Tugas-8/Tugas-8.dart';
@@ -66,6 +66,6 @@ class MyApp extends StatelessWidget {
         // home: NewsPage(),
 
         //  Final Project
-        home: OnBoardingScreen());
+        home: LoginPageStart());
   }
 }

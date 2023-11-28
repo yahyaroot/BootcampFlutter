@@ -1,6 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_progress_hud/flutter_progress_hud.dart';
 import 'package:sanberapp/FinalProject/Controller/navbar.dart';
 import 'package:sanberapp/FinalProject/register.dart';
 
@@ -13,6 +12,7 @@ class _LoginPageStartState extends State<LoginPageStart> {
   TextEditingController _emailController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
   bool _isObscured = true;
+  bool _loading = false;
 
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 
@@ -23,38 +23,34 @@ class _LoginPageStartState extends State<LoginPageStart> {
     bool isPortrait =
         MediaQuery.of(context).orientation == Orientation.portrait;
 
-    return ProgressHUD(
-      child: Builder(
-        builder: (context) => Scaffold(
-          body: isPortrait
-              ? SingleChildScrollView(
-                  physics: BouncingScrollPhysics(),
-                  child: Container(
-                    height: screenHeight,
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: AssetImage("assets/images/background_app.png"),
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                    child: buildContent(screenWidth, context),
-                  ),
-                )
-              : SingleChildScrollView(
-                  physics: BouncingScrollPhysics(),
-                  child: Container(
-                    width: screenWidth,
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: AssetImage("assets/images/background_app.png"),
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                    child: buildContent(screenWidth, context),
+    return Scaffold(
+      body: isPortrait
+          ? SingleChildScrollView(
+              physics: BouncingScrollPhysics(),
+              child: Container(
+                height: screenHeight,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage("assets/images/background_app.png"),
+                    fit: BoxFit.cover,
                   ),
                 ),
-        ),
-      ),
+                child: buildContent(screenWidth, context),
+              ),
+            )
+          : SingleChildScrollView(
+              physics: BouncingScrollPhysics(),
+              child: Container(
+                width: screenWidth,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage("assets/images/background_app.png"),
+                    fit: BoxFit.cover,
+                  ),
+                ),
+                child: buildContent(screenWidth, context),
+              ),
+            ),
     );
   }
 
@@ -155,14 +151,19 @@ class _LoginPageStartState extends State<LoginPageStart> {
           Container(
             height: 50,
             child: ElevatedButton(
-              onPressed: () => _login(context),
+              onPressed: _loading ? null : () => _login(context),
               style: ElevatedButton.styleFrom(
                 primary: Color(0xFFF1CB6D),
               ),
-              child: Text(
-                'Login',
-                style: TextStyle(color: Colors.black),
-              ),
+              child: _loading
+                  ? CircularProgressIndicator(
+                      valueColor:
+                          AlwaysStoppedAnimation<Color>(Color(0xFFF1CB6D)),
+                    )
+                  : Text(
+                      'Login',
+                      style: TextStyle(color: Colors.black),
+                    ),
             ),
           ),
           SizedBox(height: 30.0),
@@ -189,15 +190,17 @@ class _LoginPageStartState extends State<LoginPageStart> {
   }
 
   Future<void> _login(BuildContext context) async {
-    final progress = ProgressHUD.of(context);
-    progress?.show();
+    setState(() {
+      _loading = true;
+    });
 
     try {
       await _firebaseAuth.signInWithEmailAndPassword(
           email: _emailController.text, password: _passwordController.text);
 
-      Navigator.of(context)
-          .pushReplacement(MaterialPageRoute(builder: (context) => HomePage()));
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(builder: (context) => HomePage()),
+      );
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
@@ -206,7 +209,9 @@ class _LoginPageStartState extends State<LoginPageStart> {
         ),
       );
     } finally {
-      progress?.dismiss();
+      setState(() {
+        _loading = false;
+      });
     }
   }
 }

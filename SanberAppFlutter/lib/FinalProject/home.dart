@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_progress_hud/flutter_progress_hud.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'package:sanberapp/FinalProject/Card/profile.dart';
@@ -10,23 +9,19 @@ import 'package:sanberapp/FinalProject/detail.dart';
 class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return ProgressHUD(
-      child: Builder(
-        builder: (context) => Scaffold(
-          body: Container(
-            color: Colors.white,
-            margin: EdgeInsets.only(top: 30),
-            child: ListView(
-              children: [
-                SizedBox(height: 20),
-                ProfileWidget(),
-                SizedBox(height: 20),
-                TrendingWidget(),
-                SizedBox(height: 20),
-                CategoryWidget(),
-              ],
-            ),
-          ),
+    return Scaffold(
+      body: Container(
+        color: Colors.white,
+        margin: EdgeInsets.only(top: 30),
+        child: ListView(
+          children: [
+            SizedBox(height: 20),
+            ProfileWidget(),
+            SizedBox(height: 20),
+            TrendingWidget(),
+            SizedBox(height: 20),
+            CategoryWidget(),
+          ],
         ),
       ),
     );
@@ -48,7 +43,6 @@ class _TrendingWidgetState extends State<TrendingWidget> {
   }
 
   Future<void> fetchTrendingNews() async {
-    // Fetch trending news from the API without specifying a category
     final response = await http.get(Uri.parse(
         'https://newsapi.org/v2/top-headlines?country=us&apiKey=19d44e54dca04f49a8d4987d3db5d69c'));
 
@@ -97,7 +91,6 @@ class _TrendingWidgetState extends State<TrendingWidget> {
               itemBuilder: (context, index) {
                 return GestureDetector(
                   onTap: () {
-                    // Navigate to the DetailPage with the corresponding details
                     Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -143,7 +136,7 @@ class CategoryWidget extends StatefulWidget {
 class _CategoryWidgetState extends State<CategoryWidget>
     with SingleTickerProviderStateMixin, AutomaticKeepAliveClientMixin {
   List<dynamic> categoryNews = [];
-  String selectedCategory = 'all'; // Default category
+  String selectedCategory = 'health'; // Default category
   TabController? _tabController;
 
   @override
@@ -152,9 +145,16 @@ class _CategoryWidgetState extends State<CategoryWidget>
   @override
   void initState() {
     super.initState();
-    _tabController =
-        TabController(vsync: this, length: 4); // Change length to 4
-    fetchData();
+    _tabController = TabController(vsync: this, length: 4);
+    _tabController?.addListener(() {
+      onCategoryChanged(getCategoryByIndex(_tabController!.index));
+    });
+
+    // Set the initial selected category to 'health'
+    selectedCategory = getCategoryByIndex(_tabController?.index ?? 0);
+
+    // Call onCategoryChanged to load the initial content
+    onCategoryChanged(selectedCategory);
   }
 
   @override
@@ -164,27 +164,21 @@ class _CategoryWidgetState extends State<CategoryWidget>
   }
 
   void onCategoryChanged(String category) {
-    if (category != selectedCategory) {
-      setState(() {
-        selectedCategory = category;
-      });
+    setState(() {
+      selectedCategory = category;
+    });
 
-      if (category == 'all') {
-        // Fetch news from all categories
-        fetchAllCategoriesData();
-      } else {
-        // Fetch news for the selected category
-        fetchData();
-      }
+    if (category == 'all') {
+      // Fetch news from all categories
+      fetchAllCategoriesData();
+    } else {
+      // Fetch news for the selected category
+      fetchData();
     }
   }
 
   Future<void> fetchAllCategoriesData() async {
-    final progress = ProgressHUD.of(context);
-
     try {
-      progress?.show();
-
       // Fetch data for each category (health, science, and sports)
       final healthResponse = await fetchDataForCategory('health');
       final scienceResponse = await fetchDataForCategory('science');
@@ -213,8 +207,6 @@ class _CategoryWidgetState extends State<CategoryWidget>
       });
     } catch (e) {
       // Handle errors
-    } finally {
-      progress?.dismiss();
     }
   }
 
@@ -242,11 +234,7 @@ class _CategoryWidgetState extends State<CategoryWidget>
   }
 
   Future<void> fetchData() async {
-    final progress = ProgressHUD.of(context);
-
     try {
-      progress?.show();
-
       final response = await http.get(Uri.parse(
           'https://newsapi.org/v2/top-headlines?country=us&category=$selectedCategory&apiKey=19d44e54dca04f49a8d4987d3db5d69c'));
 
@@ -271,14 +259,13 @@ class _CategoryWidgetState extends State<CategoryWidget>
         throw Exception('Failed to load news');
       }
     } catch (e) {
-      // Handle errors
-    } finally {
-      progress?.dismiss();
+      // Handle errorsmi
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Container(
       padding: EdgeInsets.all(16),
       color: Colors.white,
@@ -304,10 +291,11 @@ class _CategoryWidgetState extends State<CategoryWidget>
           ),
           SizedBox(height: 20),
           DefaultTabController(
-            length: 4, // Change length to 4
+            length: 3, // Change length to 4
             child: Column(
               children: [
                 TabBar(
+                  controller: _tabController,
                   labelColor: Colors.black,
                   indicatorColor: Color(0xFFF1CB6D),
                   tabs: [

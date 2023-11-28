@@ -30,7 +30,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
               Padding(
                 padding: const EdgeInsets.symmetric(
                   horizontal: 45.0,
-                  vertical: 90.0,
+                  vertical: 80.0,
                 ),
                 child: Image.asset(
                   'assets/images/Onboarding-1.png',
@@ -88,7 +88,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
               Padding(
                 padding: const EdgeInsets.symmetric(
                   horizontal: 45.0,
-                  vertical: 90.0,
+                  vertical: 80.0,
                 ),
                 child: Image.asset(
                   'assets/images/Onboarding-2.png',
@@ -146,7 +146,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
               Padding(
                 padding: const EdgeInsets.symmetric(
                   horizontal: 45.0,
-                  vertical: 90.0,
+                  vertical: 80.0,
                 ),
                 child: Image.asset(
                   'assets/images/Onboarding-3.png',
