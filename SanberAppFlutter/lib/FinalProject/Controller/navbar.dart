@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sanberapp/FinalProject/home.dart';
 import 'package:sanberapp/FinalProject/profile.dart';
-import 'package:sanberapp/FinalProject/search.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -33,15 +32,14 @@ class _HomePageState extends State<HomePage> {
           switch (index) {
             case 0:
               return HomeScreen();
+
             case 1:
-              return SearchScreen();
-            case 2:
               return ProfileScreen();
             default:
               return Container(); // Handle other cases if needed
           }
         },
-        itemCount: 3,
+        itemCount: 2,
         onPageChanged: (index) {
           setState(() {
             _currentIndex = index;
@@ -53,10 +51,6 @@ class _HomePageState extends State<HomePage> {
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
             label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.search),
-            label: 'Search',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person),
